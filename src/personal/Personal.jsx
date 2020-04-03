@@ -8,30 +8,28 @@ const Personal = props => {
     const [editing, setEditing] = useState(false)
     const [totalP, setTotalP] = useState([])
 
+    //MOCK USER ID
     const testUserID = 7
-    console.log(`Personal props line 10`)
 
 
+    console.log(`pExpAmt Personal line 15`)
     const pExpAmt = props.personalExp
     console.log(pExpAmt)
 
-    
+// 
+    console.log(`arr Personal line 20`)
     const arr = Object.values(pExpAmt)
-    console.log(`personal line 21`)
     console.log(arr)
-
+    
     let sum = 0
-
     for(let i = 1; i < 8; i++){
          sum += arr[i]
          console.log(arr[i])
     }
 
-    console.log(`personal line 31`)
+    console.log(`sum Personal line 30`)
     console.log(sum)
 
-
-    console.log(totalP)
     
     const [expenseEditP, setExpenseEditP] = useState({
         id:props.personalBudget.id,
@@ -62,14 +60,16 @@ const Personal = props => {
 
     const submitEdit = e => {
         e.preventDefault()
-        console.log(`PCARD submitEdit Line 37`)
+        console.log(`submitEdit expenseEditP  Line 64`)
         console.log(expenseEditP)
-
         const pExpSend = {...expenseEditP, id: props.personalBudget.id}
+
+        console.log(`submitEdit pExpSend  Line 67`)
         console.log(pExpSend)
         props.expenseEditP(pExpSend)
         setEditing(false)
     }
+
 
     const handleChanges = e => {
         setExpenseEditP({...expenseEditP, [e.EventTarget.name]: e.target.value})
@@ -86,7 +86,7 @@ const Personal = props => {
             <p>Car Loans: {props.personalExp.carLoans}</p>
             <p>Personal Loans: {props.personalExp.personalLoans}</p>
             <p>Other: {props.personalExp.other}</p>
-    {/* <p>Total: {sum}</p> */}
+            <p>Total: {sum}</p>
         </div>
     )
 
