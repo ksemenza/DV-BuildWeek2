@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from 'formik'
-import axios from 'axios'
+import axiosAuth from '../utils/axiosAuth'
 import * as Yup from 'yup';
-import ExpenseTally from './ExpenseTally'
+import ExpenseTally from '../component/ExpenseTally'
 import { BorderWrap,  FormWarp, FieldCta, ErrorPrompt } from '../assets/Styles'
 
 
@@ -34,7 +34,7 @@ const MoveForm = ({ values, errors, touched, status }, props) => {
                         <FieldCta>
                             <label htmlFor='rentalDeposit'>
                                 <Field id='rentalDeposit' value={values.rentalDeposit} type='number' name='rentalDeposit' placeholder='Rental Deposit' style={{ padding: `5px` }} />
-                                {/* {touched.rentalDeposit && errors.rentalDeposit && (<ErrorPrompt>{errors.rentalDeposit}</ErrorPrompt>)} */}
+                                {touched.rentalDeposit && errors.rentalDeposit && (<ErrorPrompt>{errors.rentalDeposit}</ErrorPrompt>)}
                             </label>
                         </FieldCta>
                         <FieldCta>
@@ -45,38 +45,44 @@ const MoveForm = ({ values, errors, touched, status }, props) => {
                         </FieldCta>
                         <FieldCta>
                             <label htmlFor='storage'>
-                                <Field id='storage' value={values.storage} type='number' name='storage' placeholder='Car Insurance' style={{ padding: `5px` }} />
+                                <Field id='storage' value={values.storage} type='number' name='storage' placeholder='Storage' style={{ padding: `5px` }} />
                                 {touched.storage && errors.storage && (<ErrorPrompt>{errors.storage}</ErrorPrompt>)}
                             </label>
                         </FieldCta>
                         <FieldCta>
-                            <label htmlFor='carRental'>
-                                <Field id='carRental' value={values.carRental} type='number' name='carRental' placeholder='Health Insurance' style={{ padding: `5px` }} />
-                                {touched.carRental && errors.carRental && (<ErrorPrompt>{errors.carRental}</ErrorPrompt>)}
+                            <label htmlFor='rent'>
+                                <Field id='rent' value={values.carRental} type='number' name='rental' placeholder='Rent ' style={{ padding: `5px` }} />
+                                {touched.rent && errors.rent && (<ErrorPrompt>{errors.rent}</ErrorPrompt>)}
                             </label>
                         </FieldCta>
                         <FieldCta>
                             <label htmlFor='gas'>
-                                <Field id='gas' value={values.gas} type='number' name='gas' placeholder='Health Insurance' style={{ padding: `5px` }} />
+                                <Field id='gas' value={values.gas} type='number' name='gas' placeholder='Gas' style={{ padding: `5px` }} />
                                 {touched.gas && errors.gas && (<ErrorPrompt>{errors.gas}</ErrorPrompt>)}
                             </label>
                         </FieldCta>
                         <FieldCta>
-                            <label htmlFor='cellphoneFees '>
-                                <Field id='cellphoneFees ' value={values.cellphoneFees } type='number' name='cellphoneFees ' placeholder='Health Insurance' style={{ padding: `5px` }} />
+                            <label htmlFor='cellphoneFees'>
+                                <Field id='cellphoneFees' value={values.cellphoneFees } type='number' name='cellphoneFees' placeholder='Cell Phone' style={{ padding: `5px` }} />
                                 {touched.cellphoneFees  && errors.cellphoneFees  && (<ErrorPrompt>{errors.cellphoneFees }</ErrorPrompt>)}
                             </label>
                         </FieldCta>
                         <FieldCta>
                             <label htmlFor='movingTruck'>
-                                <Field id='movingTruck' value={values.movingTruck} type='number' name='movingTruck' placeholder='Health Insurance' style={{ padding: `5px` }} />
+                                <Field id='movingTruck' value={values.movingTruck} type='number' name='movingTruck' placeholder='Moving Truck' style={{ padding: `5px` }} />
                                 {touched.movingTruck && errors.movingTruck && (<ErrorPrompt>{errors.movingTruck}</ErrorPrompt>)}
+                            </label>
+                        </FieldCta>
+                        <FieldCta>
+                            <label htmlFor='mentalHealth'>
+                                <Field id='mentalHealth' value={values.mentalHealth} type='number' name='mentalHealth' placeholder='Mental Health Services' style={{ padding: `5px` }} />
+                                {touched.mentalHealth && errors.mentalHealth && (<ErrorPrompt>{errors.mentalHealth}</ErrorPrompt>)}
                             </label>
                         </FieldCta>
 
                         <FieldCta>
-                            <label htmlFor='incomeLoss '>
-                                <Field id='incomeLoss ' value={values.incomeLoss } type='number' name='incomeLoss ' placeholder='Income Loss ' style={{ padding: `5px` }} />
+                            <label htmlFor='incomeLoss'>
+                                <Field id='incomeLoss' value={values.incomeLoss } type='number' name='incomeLoss' placeholder='Income Loss' style={{ padding: `5px` }} />
                                 {touched.incomeLoss  && errors.incomeLoss  && (<ErrorPrompt>{errors.incomeLoss }</ErrorPrompt>)}
                             </label>
                         </FieldCta>
@@ -105,25 +111,23 @@ const MoveForm = ({ values, errors, touched, status }, props) => {
 };
 
 const FormikPersonalForm = withFormik({
-    mapPropsToValues({ id, hotelCosts, rentalDeposit, utilities, storage, rent, carRental , gas,
-         cellphoneFees,movingTruck, mentalHealth, incomeLoss, other,user_id }) {
+    mapPropsToValues({ id, hotelCosts, rentalDeposit, utilities, storage, rent, gas,
+         cellphoneFees,movingTruck, mentalHealth, incomeLoss, other, user_id }) {
         return {
-            
-         
+            id: id || null,
             hotelCosts: hotelCosts || '',
             rentalDeposit: rentalDeposit || '',
             utilities: utilities || '',
             storage: storage || '',
             rent: rent || '',
-            carRental: carRental || '',
             gas: gas || '',
             cellphoneFees: cellphoneFees || '',
             movingTruck: movingTruck || '',
             mentalHealth: mentalHealth || '',
             incomeLoss: incomeLoss || '' ,
             other: other || '',
-            user_id: ''
-        };
+            user_id: 7
+                };
     },
     /*Yup validating user input and error prompt*/
 
@@ -135,7 +139,7 @@ const FormikPersonalForm = withFormik({
     }),
 
     handleSubmit(expenses, { setStatus, resetForm }) {
-        axios.post('https://reqres.in/api/users', expenses)
+        axiosAuth.post('/relocate', expenses)
             .then(res => {
                 console.log(res.data);
                 setStatus(res.data);

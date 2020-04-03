@@ -22,7 +22,7 @@ const ExpenseHeader = () => {
               <Link to='/signup'>Sign Up</Link>
               <Link to='/personal-form'>Personal Expense</Link>
               <Link to='/moving-form'>Moving Expense</Link>
-              <Link to='/dashboard'>Dashboard</Link>
+              <Link  to='/'>Dashboard</Link>
        
             </nav>
     

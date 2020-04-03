@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from 'formik'
 import axios from 'axios'
+import axiosAuth from '../utils/axiosAuth'
 import * as Yup from 'yup';
 import { BorderWrap, TitleHeader, FormWarp, FieldCta, ErrorPrompt } from '../assets/Styles'
 import Dashboard from './Dashboard';
-import ExpenseTally from './ExpenseTally'
+import ExpenseTally from '../component/ExpenseTally'
 
 
 
@@ -88,10 +89,9 @@ const PersonalForm = ({ values, errors, touched, status }, props) => {
 
 const FormikPersonalForm = withFormik({
 
-    mapPropsToValues({ user_id, id, transportation, food, healthInsurance, carInsurance, healthCare, carLoans, personalLoans, other }) {
+
+    mapPropsToValues({ transportation, food, healthInsurance, carInsurance, healthCare, carLoans, personalLoans, other }) {
         return {
-  
-  
             transportation: transportation || '',
             food: food || '',
             healthInsurance: healthInsurance || '',
@@ -100,6 +100,7 @@ const FormikPersonalForm = withFormik({
             carLoans: carLoans || '',
             personalLoans: personalLoans || '',
             other: other || '',
+            user_id: 7
    
         };
     },
@@ -113,7 +114,7 @@ const FormikPersonalForm = withFormik({
     }),
 
     handleSubmit(expenses, { setStatus, resetForm }) {
-        axios.post('https://dvscalculator.herokuapp.com/', expenses)
+        axiosAuth.post(`/personal`, expenses)
             .then(res => {
              console.log(res.data)
                 setStatus(res.data);

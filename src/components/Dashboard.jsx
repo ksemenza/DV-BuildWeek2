@@ -1,6 +1,6 @@
 import React from "react"
 import View from './GetRequest'
-import ExpenseTally from "./ExpenseTally"
+import ExpenseTally from "../component/ExpenseTally"
 
 
 

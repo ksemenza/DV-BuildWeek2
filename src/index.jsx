@@ -9,9 +9,9 @@ import logger from 'redux-logger'
 
 import './css/index.css';
 import App from './components/App';
-import reducer from './reducers'
+import budgetReducer from './redux_components/budgetReducer'
 
-const store = createStore(reducer, applyMiddleware(thunk, logger))
+const store = createStore(budgetReducer, applyMiddleware(thunk, logger))
 
 
 ReactDOM.render(

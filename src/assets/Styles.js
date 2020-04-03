@@ -5,8 +5,8 @@ import styled from 'styled-components'
 export const TitleHeader = styled.h2`
 
 margin-bottom: -15px;
-width 33vw;
-margin 0 auto;
+width: 33vw;
+margin: 0 auto;
 padding: 15px 0;
 
 `
@@ -37,7 +37,7 @@ export const ErrorPrompt = styled.p`
 `
 
 export const BorderWrap = styled.div`
-displauy:flex;
+display:flex;
 width: 75vw;
 margin: 0 auto;
 padding-bottom: 32px;
@@ -58,12 +58,11 @@ export const ExpenseCta = styled.div`
     margin: 5px;
 `
 
-export const HeaderWrap = styled.div`
+export const HeaderWrap = styled.div
+`
 display: flex;
 flex-direction:column;
 width:100%;
-color: #fffff;
-
 font-family: 'Architects Daughter', cursive;
 margin: 0 auto;
 
@@ -79,7 +78,8 @@ nav {
 }
 header {
   width:100%;
-}`
+}
+`
 
 
 export const LogoHeaderWrap = styled.div `
